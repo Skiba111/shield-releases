@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHIELD VPN — Скачать</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d0d0f;
+      color: #e8e8e8;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .logo {
+      font-size: 42px;
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #6c63ff, #48cfad);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .tagline {
+      color: #888;
+      font-size: 15px;
+      margin-bottom: 60px;
+      letter-spacing: 0.5px;
+    }
+
+    .cards {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 960px;
+      width: 100%;
+    }
+
+    .card {
+      background: #18181c;
+      border: 1px solid #2a2a30;
+      border-radius: 20px;
+      padding: 36px 32px;
+      width: 280px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+
+    .card:hover {
+      border-color: #6c63ff55;
+      transform: translateY(-4px);
+    }
+
+    .card-icon {
+      font-size: 48px;
+      line-height: 1;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .card-sub {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      line-height: 1.5;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 13px 28px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: opacity 0.2s;
+      width: 100%;
+      text-align: center;
+    }
+
+    .btn:hover { opacity: 0.85; }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #6c63ff, #48cfad);
+      color: #fff;
+    }
+
+    .btn-soon {
+      background: #222;
+      color: #555;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .badge-soon {
+      font-size: 11px;
+      background: #2a2a30;
+      color: #666;
+      border-radius: 6px;
+      padding: 3px 10px;
+      letter-spacing: 0.5px;
+    }
+
+    footer {
+      margin-top: 60px;
+      color: #444;
+      font-size: 12px;
+      text-align: center;
+      line-height: 1.8;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="logo">SHIELD VPN</div>
+  <div class="tagline">Быстро. Приватно. Надёжно.</div>
+
+  <div class="cards">
+
+    <!-- Android -->
+    <div class="card">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">Android</div>
+      <div class="card-sub">Android 6.0+<br>Universal APK (все устройства)</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD-VPN-1.0.0-universal-release.apk"
+         id="android-btn">Скачать APK</a>
+    </div>
+
+    <!-- macOS -->
+    <div class="card">
+      <div class="card-icon"></div>
+      <div class="card-title">macOS</div>
+      <div class="card-sub">macOS 12+<br>Universal (M1/M2/M3/M4 и Intel)</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD.VPN-1.0.35-universal.dmg"
+         id="macos-btn">Скачать DMG</a>
+    </div>
+
+    <!-- Windows -->
+    <div class="card">
+      <div class="card-icon">🪟</div>
+      <div class="card-title">Windows</div>
+      <div class="card-sub">Windows 10/11<br>x64</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-desktop/releases/latest"
+         id="win-btn">Скачать EXE</a>
+    </div>
+
+    <!-- iOS -->
+    <div class="card">
+      <div class="card-icon"></div>
+      <div class="card-title">iOS</div>
+      <div class="card-sub">iPhone / iPad<br>Скоро</div>
+      <span class="badge-soon">СКОРО</span>
+      <a class="btn btn-soon" href="#">Скачать</a>
+    </div>
+
+  </div>
+
+  <footer>
+    SHIELD VPN · Все релизы: <a href="https://github.com/Skiba111/shield-releases/releases" style="color:#555">github.com/Skiba111/shield-releases</a><br>
+    Версии обновляются автоматически при каждом релизе
+  </footer>
+
+  <script>
+    // Автоматически определяем платформу и подсвечиваем нужную карточку
+    const ua = navigator.userAgent;
+    const cards = document.querySelectorAll('.card');
+    let highlight = null;
+    if (/android/i.test(ua)) highlight = 'android-btn';
+    else if (/iPad|iPhone|iPod/.test(ua)) highlight = null; // iOS — soon
+    else if (/Mac/.test(ua)) highlight = 'macos-btn';
+    else if (/Win/.test(ua)) highlight = 'win-btn';
+    if (highlight) {
+      const btn = document.getElementById(highlight);
+      if (btn) btn.closest('.card').style.borderColor = '#6c63ff99';
+    }
+  </script>
+
+</body>
+</html>
