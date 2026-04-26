@@ -3,311 +3,482 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SHIELD VPN — Скачать</title>
+  <title>SHIELD VPN</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: #0d0d0f;
-      color: #e8e8e8;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
+    :root {
+      --bg:       #07070a;
+      --surface:  #0f0f14;
+      --border:   #1e1e28;
+      --accent:   #7B61FF;
+      --accent2:  #4ECDC4;
+      --text:     #e2e2ea;
+      --muted:    #4a4a5a;
+      --tg:       #229ED9;
+    }
+
+    html, body {
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Space Grotesk', -apple-system, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* ── Canvas background ── */
+    #bg-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── Layout ── */
+    .page {
+      position: relative;
+      z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
-      padding: 40px 20px;
+      padding: 80px 20px 60px;
+      min-height: 100vh;
     }
 
-    .logo {
-      font-size: 42px;
-      font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
-      background: linear-gradient(135deg, #6c63ff, #48cfad);
+    /* ── Logo ── */
+    .logo-wrap {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .logo-svg {
+      width: 80px;
+      height: 80px;
+      filter: drop-shadow(0 0 18px rgba(123,97,255,.55));
+      animation: pulse-glow 3s ease-in-out infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(123,97,255,.4)); }
+      50%       { filter: drop-shadow(0 0 28px rgba(123,97,255,.85)); }
+    }
+
+    /* ── Brand name ── */
+    .brand {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: #fff;
+      margin-bottom: 6px;
+    }
+
+    .brand span {
+      background: linear-gradient(120deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
     .tagline {
-      color: #888;
-      font-size: 15px;
-      margin-bottom: 24px;
-      letter-spacing: 0.5px;
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--muted);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 40px;
     }
 
-    /* Бесплатный пробник — баннер */
-    .trial-banner {
+    /* ── Trial banner ── */
+    .trial {
       display: flex;
-      align-items: center;
-      gap: 12px;
-      background: linear-gradient(135deg, #1a1a2e, #16213e);
-      border: 1px solid #6c63ff44;
+      align-items: flex-start;
+      gap: 16px;
+      background: var(--surface);
+      border: 1px solid #2a2a40;
       border-radius: 16px;
-      padding: 16px 28px;
-      margin-bottom: 48px;
-      max-width: 560px;
+      padding: 18px 24px;
+      max-width: 540px;
       width: 100%;
+      margin-bottom: 52px;
     }
 
     .trial-icon {
-      font-size: 32px;
+      width: 36px;
+      height: 36px;
       flex-shrink: 0;
-    }
-
-    .trial-text {
-      line-height: 1.5;
-    }
-
-    .trial-text strong {
-      color: #fff;
-      font-size: 15px;
-    }
-
-    .trial-text span {
-      display: block;
-      font-size: 13px;
-      color: #888;
+      color: var(--accent2);
       margin-top: 2px;
     }
 
-    .trial-text a {
-      color: #6c63ff;
-      text-decoration: none;
+    .trial-body strong {
+      display: block;
+      font-size: 14px;
       font-weight: 600;
+      color: #fff;
+      margin-bottom: 5px;
     }
 
-    .trial-text a:hover { text-decoration: underline; }
+    .trial-body p {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
 
+    .trial-body a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .trial-body a:hover { text-decoration: underline; }
+
+    /* ── Cards ── */
     .cards {
       display: flex;
-      gap: 24px;
+      gap: 20px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 960px;
+      max-width: 1000px;
       width: 100%;
     }
 
     .card {
-      background: #18181c;
-      border: 1px solid #2a2a30;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 36px 32px;
-      width: 280px;
+      padding: 32px 28px 28px;
+      width: 220px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 16px;
-      transition: border-color 0.2s, transform 0.2s;
+      gap: 12px;
+      transition: border-color .25s, transform .25s, box-shadow .25s;
+      cursor: default;
     }
 
-    .card:hover {
-      border-color: #6c63ff55;
-      transform: translateY(-4px);
+    .card:not(.card--soon):hover {
+      border-color: rgba(123,97,255,.45);
+      transform: translateY(-5px);
+      box-shadow: 0 16px 40px rgba(0,0,0,.5);
     }
 
-    .card-icon { font-size: 48px; line-height: 1; }
+    .card--active {
+      border-color: rgba(123,97,255,.35);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      color: #fff;
+      opacity: .85;
+    }
 
     .card-title {
-      font-size: 20px;
-      font-weight: 700;
+      font-size: 16px;
+      font-weight: 600;
       color: #fff;
     }
 
     .card-sub {
-      font-size: 13px;
-      color: #666;
+      font-size: 12px;
+      color: var(--muted);
       text-align: center;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    .free-badge {
+    .free-tag {
       font-size: 11px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #6c63ff22, #48cfad22);
-      border: 1px solid #6c63ff44;
-      color: #48cfad;
-      border-radius: 8px;
-      padding: 4px 12px;
-      letter-spacing: 0.3px;
+      font-weight: 600;
+      color: var(--accent2);
+      border: 1px solid rgba(78,205,196,.3);
+      border-radius: 6px;
+      padding: 3px 10px;
+      letter-spacing: .3px;
     }
 
     .btn {
-      display: inline-block;
-      margin-top: 4px;
-      padding: 13px 28px;
-      border-radius: 12px;
-      font-size: 14px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: opacity 0.2s;
+      display: block;
       width: 100%;
+      padding: 11px 0;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      font-family: inherit;
+      text-decoration: none;
       text-align: center;
+      transition: opacity .2s;
+      margin-top: 4px;
+      letter-spacing: .2px;
     }
 
-    .btn:hover { opacity: 0.85; }
-
     .btn-primary {
-      background: linear-gradient(135deg, #6c63ff, #48cfad);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
     }
 
-    .btn-soon {
-      background: #222;
-      color: #555;
-      cursor: default;
+    .btn-primary:hover { opacity: .85; }
+
+    .btn-disabled {
+      background: #18181f;
+      color: var(--muted);
+      cursor: not-allowed;
       pointer-events: none;
     }
 
-    .badge-soon {
-      font-size: 11px;
-      background: #2a2a30;
-      color: #666;
+    .soon-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--muted);
+      border: 1px solid var(--border);
       border-radius: 6px;
       padding: 3px 10px;
-      letter-spacing: 0.5px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
-    /* Telegram блок */
-    .tg-block {
-      margin-top: 48px;
+    /* ── Telegram ── */
+    .tg-section {
+      margin-top: 56px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 14px;
+      gap: 12px;
     }
 
     .tg-label {
-      font-size: 13px;
-      color: #555;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--muted);
+      letter-spacing: 2px;
       text-transform: uppercase;
-      letter-spacing: 1px;
     }
 
     .tg-btn {
       display: inline-flex;
       align-items: center;
       gap: 10px;
-      background: #229ED9;
+      background: var(--tg);
       color: #fff;
-      font-size: 15px;
+      font-size: 14px;
       font-weight: 600;
-      padding: 14px 32px;
-      border-radius: 14px;
+      font-family: inherit;
+      padding: 13px 30px;
+      border-radius: 12px;
       text-decoration: none;
-      transition: opacity 0.2s, transform 0.2s;
+      transition: opacity .2s, transform .2s;
     }
 
-    .tg-btn:hover { opacity: 0.9; transform: translateY(-2px); }
+    .tg-btn:hover { opacity: .9; transform: translateY(-2px); }
 
-    .tg-desc {
+    .tg-hint {
       font-size: 12px;
-      color: #444;
+      color: var(--muted);
       text-align: center;
-      line-height: 1.6;
-      max-width: 320px;
+      line-height: 1.7;
     }
 
+    /* ── Footer ── */
     footer {
-      margin-top: 52px;
-      color: #333;
-      font-size: 12px;
+      margin-top: 56px;
+      font-size: 11px;
+      color: #2a2a38;
       text-align: center;
       line-height: 1.8;
     }
 
-    footer a { color: #444; text-decoration: none; }
-    footer a:hover { color: #666; }
+    footer a { color: #2a2a38; text-decoration: none; }
+    footer a:hover { color: var(--muted); }
+
+    /* ── Divider ── */
+    .divider {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, transparent, var(--border), transparent);
+      margin: 0 auto;
+    }
   </style>
 </head>
 <body>
 
-  <div class="logo">SHIELD VPN</div>
-  <div class="tagline">Быстро. Приватно. Надёжно.</div>
+<canvas id="bg-canvas"></canvas>
 
-  <!-- Баннер с пробником -->
-  <div class="trial-banner">
-    <div class="trial-icon">🎁</div>
-    <div class="trial-text">
+<div class="page">
+
+  <!-- Logo -->
+  <div class="logo-wrap">
+    <svg class="logo-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Shield outline -->
+      <path d="M50 4 L92 20 L92 52 C92 76 72 96 50 106 C28 96 8 76 8 52 L8 20 Z"
+            fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
+      <!-- Lightning bolt -->
+      <path d="M57 14 L35 58 L52 58 L43 96 L65 48 L48 48 Z"
+            fill="white"/>
+    </svg>
+  </div>
+
+  <!-- Brand -->
+  <div class="brand">SHIELD <span>VPN</span></div>
+  <div class="tagline">Fast · Private · Reliable</div>
+
+  <!-- Trial banner -->
+  <div class="trial">
+    <svg class="trial-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      <path d="M9 12l2 2 4-4"/>
+    </svg>
+    <div class="trial-body">
       <strong>2 дня бесплатно при установке</strong>
-      <span>
-        После установки каждый получает бесплатный доступ на 2 дня — без регистрации.<br>
-        Хочешь больше? В <a href="https://t.me/shldvpn_bot" target="_blank">Telegram боте</a> можно получить ещё 5 дней пробного доступа и оформить подписку.
-      </span>
+      <p>Каждый новый пользователь получает бесплатный доступ на 2 дня — без регистрации и карты. Хочешь больше? В <a href="https://t.me/shldvpn_bot" target="_blank">Telegram боте</a> доступен пробный период на 5 дней и оформление подписки.</p>
     </div>
   </div>
 
+  <!-- Download cards -->
   <div class="cards">
 
     <!-- Android -->
-    <div class="card">
-      <div class="card-icon">🤖</div>
+    <div class="card" id="card-android">
+      <!-- Android robot icon -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M6.18 15.64a2.18 2.18 0 0 1-2.18-2.18V9.41a2.18 2.18 0 0 1 4.36 0v4.05a2.18 2.18 0 0 1-2.18 2.18zm11.64 0a2.18 2.18 0 0 1-2.18-2.18V9.41a2.18 2.18 0 0 1 4.36 0v4.05a2.18 2.18 0 0 1-2.18 2.18zM15.88 18H8.12a.5.5 0 0 1-.5-.5v-6.06a4.38 4.38 0 0 1 8.76 0V17.5a.5.5 0 0 1-.5.5zm-3.88.88a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zm4.5 0a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zM8.05 7.25h7.9a4.38 4.38 0 0 0-7.9 0zM6.5 5.54l-1.3-1.3a.75.75 0 0 1 1.06-1.06l1.43 1.42A4.36 4.36 0 0 0 8.05 7H7a1 1 0 0 0-1 1H4.18a2.18 2.18 0 0 1 2.32-2.46zm11 0a2.18 2.18 0 0 1 2.32 2.46H18a1 1 0 0 0-1-1h-1.05a4.36 4.36 0 0 0 .36-1.4l1.43-1.42a.75.75 0 0 1 1.06 1.06z"/>
+      </svg>
       <div class="card-title">Android</div>
-      <div class="card-sub">Android 6.0+<br>Universal APK (все устройства)</div>
-      <div class="free-badge">2 дня бесплатно</div>
-      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD-VPN-1.0.0-universal-release.apk"
-         id="android-btn">Скачать APK</a>
+      <div class="card-sub">Android 6.0+<br>Universal APK</div>
+      <div class="free-tag">2 дня бесплатно</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD-VPN-1.0.0-universal-release.apk" id="android-btn">Скачать APK</a>
     </div>
 
     <!-- macOS -->
-    <div class="card">
-      <div class="card-icon">🍎</div>
+    <div class="card" id="card-macos">
+      <!-- Apple logo -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      </svg>
       <div class="card-title">macOS</div>
-      <div class="card-sub">macOS 12+<br>Universal (M1/M2/M3/M4 и Intel)</div>
-      <div class="free-badge">2 дня бесплатно</div>
-      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD.VPN-1.0.35-universal.dmg"
-         id="macos-btn">Скачать DMG</a>
+      <div class="card-sub">macOS 12+<br>M1/M2/M3/M4 · Intel</div>
+      <div class="free-tag">2 дня бесплатно</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest/download/SHIELD.VPN-1.0.35-universal.dmg" id="macos-btn">Скачать DMG</a>
     </div>
 
     <!-- Windows -->
-    <div class="card">
-      <div class="card-icon">🪟</div>
+    <div class="card" id="card-windows">
+      <!-- Windows logo -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
+        <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+      </svg>
       <div class="card-title">Windows</div>
       <div class="card-sub">Windows 10/11<br>x64</div>
-      <div class="free-badge">2 дня бесплатно</div>
-      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-desktop/releases/latest"
-         id="win-btn">Скачать EXE</a>
+      <div class="free-tag">2 дня бесплатно</div>
+      <a class="btn btn-primary" href="https://github.com/Skiba111/shield-desktop/releases/latest" id="win-btn">Скачать EXE</a>
     </div>
 
     <!-- iOS -->
-    <div class="card">
-      <div class="card-icon">📱</div>
-      <div class="card-title">iOS</div>
-      <div class="card-sub">iPhone / iPad<br>Скоро</div>
-      <span class="badge-soon">СКОРО</span>
-      <a class="btn btn-soon" href="#">Скачать</a>
+    <div class="card card--soon" id="card-ios">
+      <!-- iPhone icon -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:.35">
+        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
+        <line x1="12" y1="18" x2="12.01" y2="18"/>
+      </svg>
+      <div class="card-title" style="color:var(--muted)">iOS</div>
+      <div class="card-sub">iPhone · iPad</div>
+      <div class="soon-tag">Скоро</div>
+      <a class="btn btn-disabled" href="#">Скачать</a>
     </div>
 
   </div>
 
   <!-- Telegram -->
-  <div class="tg-block">
-    <div class="tg-label">Купить доступ / продлить</div>
+  <div class="tg-section">
+    <div class="divider"></div>
+    <div class="tg-label">Купить доступ · Продлить</div>
     <a class="tg-btn" href="https://t.me/shldvpn_bot" target="_blank">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L8.32 13.617l-2.96-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.194 1.006.131.828.942z"/></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+        <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
+      </svg>
       @shldvpn_bot
     </a>
-    <div class="tg-desc">
-      Покупка подписки, продление, пробный период на 5 дней,<br>ответы на вопросы — всё в боте
+    <div class="tg-hint">
+      Покупка подписки · Продление · Пробный период 5 дней<br>Техническая поддержка
     </div>
   </div>
 
   <footer>
-    SHIELD VPN · <a href="https://github.com/Skiba111/shield-releases/releases">Все релизы</a><br>
-    Версии обновляются автоматически при каждом релизе
+    SHIELD VPN &nbsp;·&nbsp; <a href="https://github.com/Skiba111/shield-releases/releases">Все версии</a>
   </footer>
 
-  <script>
-    const ua = navigator.userAgent;
-    let highlight = null;
-    if (/android/i.test(ua)) highlight = 'android-btn';
-    else if (/Mac/.test(ua) && !/iPhone|iPad/.test(ua)) highlight = 'macos-btn';
-    else if (/Win/.test(ua)) highlight = 'win-btn';
-    if (highlight) {
-      const btn = document.getElementById(highlight);
-      if (btn) btn.closest('.card').style.borderColor = '#6c63ff99';
+</div>
+
+<script>
+// ── Animated pixel canvas ─────────────────────────────────────────────────
+(function () {
+  const canvas = document.getElementById('bg-canvas');
+  const ctx    = canvas.getContext('2d');
+  const PIXEL  = 2;       // pixel size
+  const COUNT  = 180;     // number of particles
+
+  let W, H, particles;
+
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+
+  function rand(a, b) { return a + Math.random() * (b - a); }
+
+  function makeParticle() {
+    return {
+      x:      rand(0, W),
+      y:      rand(0, H),
+      // flicker speed
+      speed:  rand(0.002, 0.012),
+      // phase offset so they don't all pulse together
+      phase:  rand(0, Math.PI * 2),
+      // base opacity
+      base:   rand(0.04, 0.18),
+      // color: mostly purple, some teal
+      hue:    Math.random() < 0.7 ? 260 : 175,
+    };
+  }
+
+  function init() {
+    resize();
+    particles = Array.from({ length: COUNT }, makeParticle);
+  }
+
+  function draw(t) {
+    ctx.clearRect(0, 0, W, H);
+    for (const p of particles) {
+      const alpha = p.base * (0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * p.speed * 1000 + p.phase)));
+      ctx.fillStyle = `hsla(${p.hue}, 70%, 65%, ${alpha.toFixed(3)})`;
+      ctx.fillRect(Math.round(p.x), Math.round(p.y), PIXEL, PIXEL);
     }
-  </script>
+  }
+
+  let last = 0;
+  function loop(t) {
+    if (t - last > 40) { // ~24 fps — gentle flicker
+      draw(t);
+      last = t;
+    }
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', resize);
+  init();
+  requestAnimationFrame(loop);
+})();
+
+// ── Platform auto-highlight ───────────────────────────────────────────────
+(function () {
+  const ua = navigator.userAgent;
+  let id = null;
+  if (/android/i.test(ua))                         id = 'card-android';
+  else if (/Mac/.test(ua) && !/iPhone|iPad/.test(ua)) id = 'card-macos';
+  else if (/Win/.test(ua))                         id = 'card-windows';
+  if (id) document.getElementById(id)?.classList.add('card--active');
+})();
+</script>
 
 </body>
 </html>
