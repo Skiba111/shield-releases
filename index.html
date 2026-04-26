@@ -11,14 +11,14 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg:       #07070a;
-      --surface:  #0f0f14;
-      --border:   #1e1e28;
-      --accent:   #7B61FF;
-      --accent2:  #4ECDC4;
-      --text:     #e2e2ea;
-      --muted:    #4a4a5a;
-      --tg:       #229ED9;
+      --bg:      #07070a;
+      --surface: #0f0f14;
+      --border:  #1e1e28;
+      --accent:  #7B61FF;
+      --accent2: #4ECDC4;
+      --text:    #e2e2ea;
+      --muted:   #4a4a5a;
+      --tg:      #229ED9;
     }
 
     html, body {
@@ -29,7 +29,6 @@
       overflow-x: hidden;
     }
 
-    /* ── Canvas background ── */
     #bg-canvas {
       position: fixed;
       inset: 0;
@@ -37,44 +36,58 @@
       pointer-events: none;
     }
 
-    /* ── Layout ── */
     .page {
       position: relative;
       z-index: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 80px 20px 60px;
+      padding: 72px 20px 60px;
       min-height: 100vh;
     }
 
-    /* ── Logo ── */
+    /* ── LOGO ── */
     .logo-wrap {
       position: relative;
-      margin-bottom: 32px;
+      width: 88px;
+      height: 88px;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Мягкое свечение позади логотипа — только opacity, GPU-smooth */
+    .logo-glow {
+      position: absolute;
+      inset: -24px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(123,97,255,.7) 0%, rgba(78,205,196,.2) 50%, transparent 75%);
+      animation: glow 3.5s ease-in-out infinite;
+      will-change: opacity;
+    }
+
+    @keyframes glow {
+      0%, 100% { opacity: .35; }
+      50%       { opacity: 1;   }
     }
 
     .logo-svg {
-      width: 80px;
-      height: 80px;
-      filter: drop-shadow(0 0 18px rgba(123,97,255,.55));
-      animation: pulse-glow 3s ease-in-out infinite;
+      position: relative;
+      z-index: 1;
+      width: 72px;
+      height: 72px;
     }
 
-    @keyframes pulse-glow {
-      0%, 100% { filter: drop-shadow(0 0 12px rgba(123,97,255,.4)); }
-      50%       { filter: drop-shadow(0 0 28px rgba(123,97,255,.85)); }
-    }
-
-    /* ── Brand name ── */
+    /* ── BRAND ── */
     .brand {
-      font-size: 36px;
+      font-size: clamp(28px, 5vw, 38px);
       font-weight: 700;
-      letter-spacing: -0.5px;
+      letter-spacing: -.5px;
       color: #fff;
       margin-bottom: 6px;
+      text-align: center;
     }
-
     .brand span {
       background: linear-gradient(120deg, var(--accent), var(--accent2));
       -webkit-background-clip: text;
@@ -82,34 +95,35 @@
     }
 
     .tagline {
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 12px;
+      font-weight: 500;
       color: var(--muted);
-      letter-spacing: 2px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
-      margin-bottom: 40px;
+      margin-bottom: 44px;
+      text-align: center;
     }
 
-    /* ── Trial banner ── */
+    /* ── TRIAL BANNER ── */
     .trial {
       display: flex;
       align-items: flex-start;
-      gap: 16px;
+      gap: 14px;
       background: var(--surface);
-      border: 1px solid #2a2a40;
+      border: 1px solid #252535;
       border-radius: 16px;
-      padding: 18px 24px;
-      max-width: 540px;
+      padding: 16px 22px;
+      max-width: 520px;
       width: 100%;
-      margin-bottom: 52px;
+      margin-bottom: 48px;
     }
 
     .trial-icon {
-      width: 36px;
-      height: 36px;
+      width: 32px;
+      height: 32px;
       flex-shrink: 0;
       color: var(--accent2);
-      margin-top: 2px;
+      margin-top: 1px;
     }
 
     .trial-body strong {
@@ -117,7 +131,7 @@
       font-size: 14px;
       font-weight: 600;
       color: #fff;
-      margin-bottom: 5px;
+      margin-bottom: 4px;
     }
 
     .trial-body p {
@@ -131,16 +145,15 @@
       text-decoration: none;
       font-weight: 500;
     }
-
     .trial-body a:hover { text-decoration: underline; }
 
-    /* ── Cards ── */
+    /* ── CARDS ── */
     .cards {
       display: flex;
-      gap: 20px;
+      gap: 16px;
       flex-wrap: wrap;
       justify-content: center;
-      max-width: 1000px;
+      max-width: 980px;
       width: 100%;
     }
 
@@ -148,35 +161,30 @@
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 20px;
-      padding: 32px 28px 28px;
-      width: 220px;
+      padding: 28px 24px 24px;
+      width: 215px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       transition: border-color .25s, transform .25s, box-shadow .25s;
-      cursor: default;
     }
 
     .card:not(.card--soon):hover {
-      border-color: rgba(123,97,255,.45);
-      transform: translateY(-5px);
-      box-shadow: 0 16px 40px rgba(0,0,0,.5);
+      border-color: rgba(123,97,255,.5);
+      transform: translateY(-4px);
+      box-shadow: 0 14px 36px rgba(0,0,0,.55);
     }
 
-    .card--active {
-      border-color: rgba(123,97,255,.35);
-    }
+    .card--active { border-color: rgba(123,97,255,.4); }
 
     .card-icon {
-      width: 44px;
-      height: 44px;
-      color: #fff;
-      opacity: .85;
+      width: 42px;
+      height: 42px;
     }
 
     .card-title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: #fff;
     }
@@ -194,8 +202,7 @@
       color: var(--accent2);
       border: 1px solid rgba(78,205,196,.3);
       border-radius: 6px;
-      padding: 3px 10px;
-      letter-spacing: .3px;
+      padding: 3px 9px;
     }
 
     .btn {
@@ -209,19 +216,17 @@
       text-decoration: none;
       text-align: center;
       transition: opacity .2s;
-      margin-top: 4px;
-      letter-spacing: .2px;
+      margin-top: 2px;
     }
 
     .btn-primary {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
     }
-
     .btn-primary:hover { opacity: .85; }
 
     .btn-disabled {
-      background: #18181f;
+      background: #16161e;
       color: var(--muted);
       cursor: not-allowed;
       pointer-events: none;
@@ -233,18 +238,24 @@
       color: var(--muted);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 3px 10px;
+      padding: 3px 9px;
       letter-spacing: 1px;
       text-transform: uppercase;
     }
 
-    /* ── Telegram ── */
+    /* ── TELEGRAM ── */
     .tg-section {
-      margin-top: 56px;
+      margin-top: 52px;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 12px;
+    }
+
+    .divider {
+      width: 1px;
+      height: 36px;
+      background: linear-gradient(to bottom, transparent, var(--border), transparent);
     }
 
     .tg-label {
@@ -258,18 +269,17 @@
     .tg-btn {
       display: inline-flex;
       align-items: center;
-      gap: 10px;
+      gap: 9px;
       background: var(--tg);
       color: #fff;
       font-size: 14px;
       font-weight: 600;
       font-family: inherit;
-      padding: 13px 30px;
+      padding: 12px 28px;
       border-radius: 12px;
       text-decoration: none;
       transition: opacity .2s, transform .2s;
     }
-
     .tg-btn:hover { opacity: .9; transform: translateY(-2px); }
 
     .tg-hint {
@@ -279,24 +289,60 @@
       line-height: 1.7;
     }
 
-    /* ── Footer ── */
     footer {
-      margin-top: 56px;
+      margin-top: 52px;
       font-size: 11px;
-      color: #2a2a38;
+      color: #252530;
       text-align: center;
       line-height: 1.8;
     }
-
-    footer a { color: #2a2a38; text-decoration: none; }
+    footer a { color: #252530; text-decoration: none; }
     footer a:hover { color: var(--muted); }
 
-    /* ── Divider ── */
-    .divider {
-      width: 1px;
-      height: 40px;
-      background: linear-gradient(to bottom, transparent, var(--border), transparent);
-      margin: 0 auto;
+    /* ── MOBILE ── */
+    @media (max-width: 600px) {
+      .page { padding: 52px 16px 48px; }
+
+      .trial {
+        flex-direction: column;
+        gap: 10px;
+        padding: 14px 16px;
+        margin-bottom: 32px;
+      }
+
+      .cards {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .card {
+        width: 100%;
+        max-width: 340px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        padding: 18px 20px;
+        gap: 8px;
+        align-items: center;
+      }
+
+      .card-icon { width: 36px; height: 36px; flex-shrink: 0; }
+
+      .card-title { font-size: 15px; flex: 1; text-align: left; margin: 0; }
+
+      .card-sub { display: none; } /* на мобиле скрываем подзаголовок */
+
+      .free-tag { margin-left: auto; }
+
+      .btn { margin-top: 0; }
+
+      /* растягиваем кнопку на всю строку */
+      .card .btn { width: 100%; flex-basis: 100%; }
+    }
+
+    @media (min-width: 601px) and (max-width: 900px) {
+      .cards { gap: 12px; }
+      .card { width: 180px; padding: 22px 18px 20px; }
     }
   </style>
 </head>
@@ -308,13 +354,20 @@
 
   <!-- Logo -->
   <div class="logo-wrap">
-    <img class="logo-svg" src="logo.png" alt="SHIELD VPN" style="mix-blend-mode:screen; object-fit:contain;" />
-    <!-- fallback svg hidden: --><svg style="display:none" viewBox="0 0 100 110" fill="none">
-      <path d="M50 4 L92 20 L92 52 C92 76 72 96 50 106 C28 96 8 76 8 52 L8 20 Z"
-            fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
+    <div class="logo-glow"></div>
+    <!-- Inline SVG — без фона, с градиентными цветами -->
+    <svg class="logo-svg" viewBox="0 0 100 112" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="lg" x1="0" y1="0" x2="100" y2="112" gradientUnits="userSpaceOnUse">
+          <stop offset="0%" stop-color="#7B61FF"/>
+          <stop offset="100%" stop-color="#4ECDC4"/>
+        </linearGradient>
+      </defs>
+      <!-- Shield -->
+      <path d="M50 5 L91 20 L91 51 C91 75 72 95 50 107 C28 95 9 75 9 51 L9 20 Z"
+            fill="none" stroke="url(#lg)" stroke-width="5" stroke-linejoin="round"/>
       <!-- Lightning bolt -->
-      <path d="M57 14 L35 58 L52 58 L43 96 L65 48 L48 48 Z"
-            fill="white"/>
+      <path d="M57 17 L36 57 L52 57 L43 95 L65 50 L49 50 Z" fill="url(#lg)"/>
     </svg>
   </div>
 
@@ -334,14 +387,13 @@
     </div>
   </div>
 
-  <!-- Download cards -->
+  <!-- Cards -->
   <div class="cards">
 
     <!-- Android -->
     <div class="card" id="card-android">
-      <!-- Clean Android robot head -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#3DDC84">
-        <path d="M14.994 3.542 16.44 1.22a.4.4 0 0 0-.691-.402l-1.482 2.548A7.94 7.94 0 0 0 12 3.01c-.786 0-1.54.113-2.267.356L8.251.818A.4.4 0 0 0 7.56 1.22l1.446 2.322A7.978 7.978 0 0 0 4.006 10H20a7.978 7.978 0 0 0-5.006-6.458ZM9.5 7.5a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Zm5 0a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM3 12a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1Zm18 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1ZM5 11v8a2 2 0 0 0 2 2h1v2a1 1 0 0 0 2 0v-2h4v2a1 1 0 0 0 2 0v-2h1a2 2 0 0 0 2-2v-8H5Z"/>
+      <svg class="card-icon" viewBox="0 0 24 24" fill="#3DDC84">
+        <path d="M14.994 3.54 16.44 1.22a.4.4 0 0 0-.692-.402l-1.48 2.548A7.94 7.94 0 0 0 12 3.01c-.786 0-1.54.113-2.268.356L8.252.818A.4.4 0 0 0 7.56 1.22l1.447 2.32A7.978 7.978 0 0 0 4.007 10H20a7.978 7.978 0 0 0-5.006-6.46ZM9.5 7.5a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Zm5 0a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM3 12a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1Zm18 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1ZM5 11v8a2 2 0 0 0 2 2h1v2a1 1 0 0 0 2 0v-2h4v2a1 1 0 0 0 2 0v-2h1a2 2 0 0 0 2-2v-8H5Z"/>
       </svg>
       <div class="card-title">Android</div>
       <div class="card-sub">Android 6.0+<br>Universal APK</div>
@@ -351,9 +403,9 @@
 
     <!-- macOS -->
     <div class="card" id="card-macos">
-      <!-- Apple logo for macOS -->
-      <svg class="card-icon" viewBox="0 0 814 1000" fill="currentColor">
-        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-98.8S50 441.3 50 414.3c0-166.9 108.8-255.4 215.7-255.4 69.1 0 126.4 45.3 170 45.3 43.6 0 112.1-47.7 191.3-47.7 30.5 0 110.8 2.6 162.7 90.8zm-85.4-140.3c-0.1-.5 0-1-.1-1.5-28.3 33.4-75.8 58.3-121.4 58.3-2.1 0-4.2-.1-6.4-.3-1.5-48.1 16.5-95.7 45.5-128.5 30.4-34.3 80.2-60.1 124-60.1 1.5 0 2.9.1 4.4.2 1.6 49.5-14 97-46 131.9z"/>
+      <!-- Apple logo — проверенный простой путь -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="#e0e0e0">
+        <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.46 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09Zm3.378-3.066c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702Z"/>
       </svg>
       <div class="card-title">macOS</div>
       <div class="card-sub">macOS 12+<br>M1/M2/M3/M4 · Intel</div>
@@ -363,9 +415,9 @@
 
     <!-- Windows -->
     <div class="card" id="card-windows">
-      <!-- Windows logo — четыре квадрата -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#00ADEF">
-        <path d="M3 3h8.5v8.5H3V3zm9.5 0H21v8.5h-8.5V3zM3 12.5h8.5V21H3v-8.5zm9.5 0H21V21h-8.5v-8.5z"/>
+      <!-- Windows logo — классические 4 плитки -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="#00ADEF">
+        <path d="M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
       </svg>
       <div class="card-title">Windows</div>
       <div class="card-sub">Windows 10/11<br>x64</div>
@@ -375,12 +427,12 @@
 
     <!-- iOS -->
     <div class="card card--soon" id="card-ios">
-      <!-- Apple logo (same as macOS, dim) -->
-      <svg class="card-icon" viewBox="0 0 814 1000" fill="currentColor" style="opacity:.3">
-        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-98.8S50 441.3 50 414.3c0-166.9 108.8-255.4 215.7-255.4 69.1 0 126.4 45.3 170 45.3 43.6 0 112.1-47.7 191.3-47.7 30.5 0 110.8 2.6 162.7 90.8zm-85.4-140.3c-0.1-.5 0-1-.1-1.5-28.3 33.4-75.8 58.3-121.4 58.3-2.1 0-4.2-.1-6.4-.3-1.5-48.1 16.5-95.7 45.5-128.5 30.4-34.3 80.2-60.1 124-60.1 1.5 0 2.9.1 4.4.2 1.6 49.5-14 97-46 131.9z"/>
+      <!-- Apple logo dim — iOS App Store -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="#555">
+        <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.46 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09Zm3.378-3.066c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702Z"/>
       </svg>
       <div class="card-title" style="color:var(--muted)">iOS / iPadOS</div>
-      <div class="card-sub">iPhone · iPad<br>App Store</div>
+      <div class="card-sub">iPhone · iPad<br>App Store — скоро</div>
       <div class="soon-tag">Скоро</div>
       <a class="btn btn-disabled" href="#">Скачать</a>
     </div>
@@ -412,9 +464,8 @@
 // ── Animated pixel canvas ─────────────────────────────────────────────────
 (function () {
   const canvas = document.getElementById('bg-canvas');
-  const ctx    = canvas.getContext('2d');
-  const COUNT  = 320;     // число пикселей
-
+  const ctx = canvas.getContext('2d');
+  const COUNT = 300;
   let W, H, particles;
 
   function resize() {
@@ -425,41 +476,33 @@
   function rand(a, b) { return a + Math.random() * (b - a); }
 
   function makeParticle() {
-    const big = Math.random() < 0.15; // 15% крупных пикселей
+    const big = Math.random() < 0.12;
     return {
       x:     rand(0, W),
       y:     rand(0, H),
-      size:  big ? rand(3, 5) : rand(1, 2.5),
-      speed: rand(0.4, 2.2),          // скорость мерцания (единицы/сек)
+      size:  big ? rand(3, 5) : rand(1.5, 2.5),
+      speed: rand(0.3, 1.8),
       phase: rand(0, Math.PI * 2),
-      base:  big ? rand(0.35, 0.75) : rand(0.1, 0.45),
-      hue:   Math.random() < 0.65 ? 260 : 175, // фиолетовый или бирюзовый
+      peak:  big ? rand(0.5, 0.85) : rand(0.15, 0.5),
+      hue:   Math.random() < 0.65 ? 260 : 172,
     };
   }
 
-  function init() {
-    resize();
-    particles = Array.from({ length: COUNT }, makeParticle);
-  }
+  function init() { resize(); particles = Array.from({ length: COUNT }, makeParticle); }
 
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
-    const sec = t / 1000;
+    const s = t / 1000;
     for (const p of particles) {
-      // sin даёт значение от 0 до 1, умноженное на base → реальная прозрачность
-      const flicker = 0.5 + 0.5 * Math.sin(sec * p.speed * Math.PI * 2 + p.phase);
-      const alpha   = p.base * flicker;
-      ctx.fillStyle = `hsla(${p.hue}, 85%, 70%, ${alpha.toFixed(3)})`;
+      const f = 0.5 + 0.5 * Math.sin(s * p.speed * Math.PI * 2 + p.phase);
+      ctx.fillStyle = `hsla(${p.hue},80%,68%,${(p.peak * f).toFixed(3)})`;
       ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
     }
   }
 
-  let last = 0;
+  let prev = 0;
   function loop(t) {
-    if (t - last > 20) { // ~50 fps — заметное живое мерцание
-      draw(t);
-      last = t;
-    }
+    if (t - prev > 20) { draw(t); prev = t; } // ~50 fps
     requestAnimationFrame(loop);
   }
 
@@ -468,13 +511,13 @@
   requestAnimationFrame(loop);
 })();
 
-// ── Platform auto-highlight ───────────────────────────────────────────────
+// ── Platform highlight ────────────────────────────────────────────────────
 (function () {
   const ua = navigator.userAgent;
   let id = null;
-  if (/android/i.test(ua))                         id = 'card-android';
+  if (/android/i.test(ua))                            id = 'card-android';
   else if (/Mac/.test(ua) && !/iPhone|iPad/.test(ua)) id = 'card-macos';
-  else if (/Win/.test(ua))                         id = 'card-windows';
+  else if (/Win/.test(ua))                            id = 'card-windows';
   if (id) document.getElementById(id)?.classList.add('card--active');
 })();
 </script>
