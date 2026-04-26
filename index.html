@@ -52,9 +52,10 @@
     }
 
     .logo-svg {
-      width: 80px;
-      height: 80px;
+      width: 88px;
+      height: 88px;
       display: block;
+      border-radius: 22px;
     }
 
     /* ── BRAND ── */
@@ -330,48 +331,9 @@
 
 <div class="page">
 
-  <!-- Logo — SVG по оригинальному icon.png -->
+  <!-- Logo — оригинальный PNG с закруглёнными углами -->
   <div class="logo-wrap">
-    <svg class="logo-svg" viewBox="0 0 100 108" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!--
-        Щит: «плечи» с выемкой вверху (Q-кривые создают два горба),
-        прямые стороны, округлое двойное дно.
-        stroke-width жирный как в оригинале.
-      -->
-      <path d="
-        M50 10
-        Q43 7 36 9
-        Q28 6 21 11
-        C15 15 13 22 13 30
-        L13 54
-        C13 74 30 91 50 101
-        C70 91 87 74 87 54
-        L87 30
-        C87 22 85 15 79 11
-        Q72 6 64 9
-        Q57 7 50 10 Z"
-        fill="none"
-        stroke="white"
-        stroke-width="6.5"
-        stroke-linejoin="round"
-        stroke-linecap="round"
-      />
-      <!--
-        Молния: точный зигзаг как в оригинале.
-        Верхний конец у верха щита, нижний у основания.
-        Левый «прыжок» в середине — характерный уступ.
-      -->
-      <path d="
-        M 64 13
-        L 37 55
-        L 53 55
-        L 39 94
-        L 64 52
-        L 48 52
-        Z"
-        fill="white"
-      />
-    </svg>
+    <img class="logo-svg" src="logo.png" alt="SHIELD VPN" />
   </div>
 
   <!-- Brand -->
