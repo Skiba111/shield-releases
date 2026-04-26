@@ -308,8 +308,8 @@
 
   <!-- Logo -->
   <div class="logo-wrap">
-    <svg class="logo-svg" viewBox="0 0 100 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <!-- Shield outline -->
+    <img class="logo-svg" src="logo.png" alt="SHIELD VPN" style="mix-blend-mode:screen; object-fit:contain;" />
+    <!-- fallback svg hidden: --><svg style="display:none" viewBox="0 0 100 110" fill="none">
       <path d="M50 4 L92 20 L92 52 C92 76 72 96 50 106 C28 96 8 76 8 52 L8 20 Z"
             fill="none" stroke="white" stroke-width="5" stroke-linejoin="round"/>
       <!-- Lightning bolt -->
@@ -339,9 +339,9 @@
 
     <!-- Android -->
     <div class="card" id="card-android">
-      <!-- Android robot icon -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M6.18 15.64a2.18 2.18 0 0 1-2.18-2.18V9.41a2.18 2.18 0 0 1 4.36 0v4.05a2.18 2.18 0 0 1-2.18 2.18zm11.64 0a2.18 2.18 0 0 1-2.18-2.18V9.41a2.18 2.18 0 0 1 4.36 0v4.05a2.18 2.18 0 0 1-2.18 2.18zM15.88 18H8.12a.5.5 0 0 1-.5-.5v-6.06a4.38 4.38 0 0 1 8.76 0V17.5a.5.5 0 0 1-.5.5zm-3.88.88a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zm4.5 0a2.18 2.18 0 1 1 0 4.36 2.18 2.18 0 0 1 0-4.36zM8.05 7.25h7.9a4.38 4.38 0 0 0-7.9 0zM6.5 5.54l-1.3-1.3a.75.75 0 0 1 1.06-1.06l1.43 1.42A4.36 4.36 0 0 0 8.05 7H7a1 1 0 0 0-1 1H4.18a2.18 2.18 0 0 1 2.32-2.46zm11 0a2.18 2.18 0 0 1 2.32 2.46H18a1 1 0 0 0-1-1h-1.05a4.36 4.36 0 0 0 .36-1.4l1.43-1.42a.75.75 0 0 1 1.06 1.06z"/>
+      <!-- Clean Android robot head -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#3DDC84">
+        <path d="M14.994 3.542 16.44 1.22a.4.4 0 0 0-.691-.402l-1.482 2.548A7.94 7.94 0 0 0 12 3.01c-.786 0-1.54.113-2.267.356L8.251.818A.4.4 0 0 0 7.56 1.22l1.446 2.322A7.978 7.978 0 0 0 4.006 10H20a7.978 7.978 0 0 0-5.006-6.458ZM9.5 7.5a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Zm5 0a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM3 12a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1Zm18 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1ZM5 11v8a2 2 0 0 0 2 2h1v2a1 1 0 0 0 2 0v-2h4v2a1 1 0 0 0 2 0v-2h1a2 2 0 0 0 2-2v-8H5Z"/>
       </svg>
       <div class="card-title">Android</div>
       <div class="card-sub">Android 6.0+<br>Universal APK</div>
@@ -351,9 +351,9 @@
 
     <!-- macOS -->
     <div class="card" id="card-macos">
-      <!-- Apple logo -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+      <!-- Apple logo for macOS -->
+      <svg class="card-icon" viewBox="0 0 814 1000" fill="currentColor">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-98.8S50 441.3 50 414.3c0-166.9 108.8-255.4 215.7-255.4 69.1 0 126.4 45.3 170 45.3 43.6 0 112.1-47.7 191.3-47.7 30.5 0 110.8 2.6 162.7 90.8zm-85.4-140.3c-0.1-.5 0-1-.1-1.5-28.3 33.4-75.8 58.3-121.4 58.3-2.1 0-4.2-.1-6.4-.3-1.5-48.1 16.5-95.7 45.5-128.5 30.4-34.3 80.2-60.1 124-60.1 1.5 0 2.9.1 4.4.2 1.6 49.5-14 97-46 131.9z"/>
       </svg>
       <div class="card-title">macOS</div>
       <div class="card-sub">macOS 12+<br>M1/M2/M3/M4 · Intel</div>
@@ -363,9 +363,9 @@
 
     <!-- Windows -->
     <div class="card" id="card-windows">
-      <!-- Windows logo -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M0 3.449L9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
+      <!-- Windows logo — четыре квадрата -->
+      <svg class="card-icon" viewBox="0 0 24 24" fill="currentColor" style="color:#00ADEF">
+        <path d="M3 3h8.5v8.5H3V3zm9.5 0H21v8.5h-8.5V3zM3 12.5h8.5V21H3v-8.5zm9.5 0H21V21h-8.5v-8.5z"/>
       </svg>
       <div class="card-title">Windows</div>
       <div class="card-sub">Windows 10/11<br>x64</div>
@@ -375,13 +375,12 @@
 
     <!-- iOS -->
     <div class="card card--soon" id="card-ios">
-      <!-- iPhone icon -->
-      <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" style="opacity:.35">
-        <rect x="5" y="2" width="14" height="20" rx="2" ry="2"/>
-        <line x1="12" y1="18" x2="12.01" y2="18"/>
+      <!-- Apple logo (same as macOS, dim) -->
+      <svg class="card-icon" viewBox="0 0 814 1000" fill="currentColor" style="opacity:.3">
+        <path d="M788.1 340.9c-5.8 4.5-108.2 62.2-108.2 190.5 0 148.4 130.3 200.9 134.2 202.2-.6 3.2-20.7 71.9-68.7 141.9-42.8 61.6-87.5 123.1-155.5 123.1s-85.5-39.5-164-39.5c-76 0-103.7 40.8-165.9 40.8s-105-37.5-155.5-98.8S50 441.3 50 414.3c0-166.9 108.8-255.4 215.7-255.4 69.1 0 126.4 45.3 170 45.3 43.6 0 112.1-47.7 191.3-47.7 30.5 0 110.8 2.6 162.7 90.8zm-85.4-140.3c-0.1-.5 0-1-.1-1.5-28.3 33.4-75.8 58.3-121.4 58.3-2.1 0-4.2-.1-6.4-.3-1.5-48.1 16.5-95.7 45.5-128.5 30.4-34.3 80.2-60.1 124-60.1 1.5 0 2.9.1 4.4.2 1.6 49.5-14 97-46 131.9z"/>
       </svg>
-      <div class="card-title" style="color:var(--muted)">iOS</div>
-      <div class="card-sub">iPhone · iPad</div>
+      <div class="card-title" style="color:var(--muted)">iOS / iPadOS</div>
+      <div class="card-sub">iPhone · iPad<br>App Store</div>
       <div class="soon-tag">Скоро</div>
       <a class="btn btn-disabled" href="#">Скачать</a>
     </div>
@@ -414,8 +413,7 @@
 (function () {
   const canvas = document.getElementById('bg-canvas');
   const ctx    = canvas.getContext('2d');
-  const PIXEL  = 2;       // pixel size
-  const COUNT  = 180;     // number of particles
+  const COUNT  = 320;     // число пикселей
 
   let W, H, particles;
 
@@ -427,17 +425,15 @@
   function rand(a, b) { return a + Math.random() * (b - a); }
 
   function makeParticle() {
+    const big = Math.random() < 0.15; // 15% крупных пикселей
     return {
-      x:      rand(0, W),
-      y:      rand(0, H),
-      // flicker speed
-      speed:  rand(0.002, 0.012),
-      // phase offset so they don't all pulse together
-      phase:  rand(0, Math.PI * 2),
-      // base opacity
-      base:   rand(0.04, 0.18),
-      // color: mostly purple, some teal
-      hue:    Math.random() < 0.7 ? 260 : 175,
+      x:     rand(0, W),
+      y:     rand(0, H),
+      size:  big ? rand(3, 5) : rand(1, 2.5),
+      speed: rand(0.4, 2.2),          // скорость мерцания (единицы/сек)
+      phase: rand(0, Math.PI * 2),
+      base:  big ? rand(0.35, 0.75) : rand(0.1, 0.45),
+      hue:   Math.random() < 0.65 ? 260 : 175, // фиолетовый или бирюзовый
     };
   }
 
@@ -448,16 +444,19 @@
 
   function draw(t) {
     ctx.clearRect(0, 0, W, H);
+    const sec = t / 1000;
     for (const p of particles) {
-      const alpha = p.base * (0.4 + 0.6 * (0.5 + 0.5 * Math.sin(t * p.speed * 1000 + p.phase)));
-      ctx.fillStyle = `hsla(${p.hue}, 70%, 65%, ${alpha.toFixed(3)})`;
-      ctx.fillRect(Math.round(p.x), Math.round(p.y), PIXEL, PIXEL);
+      // sin даёт значение от 0 до 1, умноженное на base → реальная прозрачность
+      const flicker = 0.5 + 0.5 * Math.sin(sec * p.speed * Math.PI * 2 + p.phase);
+      const alpha   = p.base * flicker;
+      ctx.fillStyle = `hsla(${p.hue}, 85%, 70%, ${alpha.toFixed(3)})`;
+      ctx.fillRect(Math.round(p.x), Math.round(p.y), p.size, p.size);
     }
   }
 
   let last = 0;
   function loop(t) {
-    if (t - last > 40) { // ~24 fps — gentle flicker
+    if (t - last > 20) { // ~50 fps — заметное живое мерцание
       draw(t);
       last = t;
     }
