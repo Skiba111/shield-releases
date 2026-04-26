@@ -479,46 +479,69 @@
 
 // ── Dynamic download links via GitHub Releases API ───────────────────────
 (async function () {
+  // Сделать кнопку неактивной (нет релиза)
+  function disableBtn(id, label) {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.classList.remove('btn-primary');
+    btn.classList.add('btn-disabled');
+    btn.textContent = label || 'Скоро';
+    btn.removeAttribute('href');
+  }
+
+  // Сделать кнопку активной с прямым скачиванием
+  function setDownload(id, url) {
+    const btn = document.getElementById(id);
+    if (!btn) return;
+    btn.href = url;
+    // прямая ссылка на файл → атрибут download запускает загрузку без открытия страницы
+    btn.setAttribute('download', '');
+  }
+
   try {
-    const resp = await fetch('https://api.github.com/repos/Skiba111/shield-releases/releases', {
-      headers: { 'Accept': 'application/vnd.github+json' }
-    });
+    const resp = await fetch(
+      'https://api.github.com/repos/Skiba111/shield-releases/releases?per_page=100',
+      { headers: { 'Accept': 'application/vnd.github+json' } }
+    );
     if (!resp.ok) return;
     const releases = await resp.json();
 
     const findLatest = prefix => releases.find(r => r.tag_name.startsWith(prefix));
     const findAsset  = (rel, rx) => rel?.assets?.find(a => rx.test(a.name));
 
-    // Android — ищем универсальный APK
-    const android    = findLatest('android-');
-    const androidUrl = findAsset(android, /universal.*\.apk$/i)?.browser_download_url
-                    || findAsset(android, /\.apk$/i)?.browser_download_url
-                    || android?.html_url;
-    if (androidUrl) {
-      const btn = document.getElementById('android-btn');
-      btn.href = androidUrl;
-      // прямой файл — скачиваем напрямую, не открываем страницу
-      if (androidUrl.includes('github.com/Skiba111/shield-releases/releases/download/')) {
-        btn.setAttribute('download', '');
-      }
+    // ── Android ──────────────────────────────────────────────────────────
+    const android = findLatest('android-');
+    if (android) {
+      const asset = findAsset(android, /universal.*\.apk$/i)
+                 || findAsset(android, /\.apk$/i);
+      if (asset?.browser_download_url) setDownload('android-btn', asset.browser_download_url);
+      // если активов нет — кнопка остаётся как есть (ссылка на страницу релиза)
+    } else {
+      disableBtn('android-btn', 'Скоро');
     }
 
-    // macOS — arm64 DMG, либо любой DMG
-    const mac    = findLatest('macos-');
-    const macUrl = findAsset(mac, /arm64.*\.dmg$/i)?.browser_download_url
-                || findAsset(mac, /\.dmg$/i)?.browser_download_url
-                || mac?.html_url;
-    if (macUrl) document.getElementById('macos-btn').href = macUrl;
+    // ── macOS ─────────────────────────────────────────────────────────────
+    const mac = findLatest('macos-');
+    if (mac) {
+      const asset = findAsset(mac, /arm64.*\.dmg$/i)
+                 || findAsset(mac, /\.dmg$/i);
+      if (asset?.browser_download_url) setDownload('macos-btn', asset.browser_download_url);
+    } else {
+      disableBtn('macos-btn', 'Скоро');
+    }
 
-    // Windows — Setup EXE, либо любой EXE
-    const win    = findLatest('windows-');
-    const winUrl = findAsset(win, /Setup.*\.exe$/i)?.browser_download_url
-                || findAsset(win, /\.exe$/i)?.browser_download_url
-                || win?.html_url;
-    if (winUrl) document.getElementById('win-btn').href = winUrl;
+    // ── Windows ───────────────────────────────────────────────────────────
+    const win = findLatest('windows-');
+    if (win) {
+      const asset = findAsset(win, /Setup.*\.exe$/i)
+                 || findAsset(win, /installer.*\.exe$/i)
+                 || findAsset(win, /\.exe$/i);
+      if (asset?.browser_download_url) setDownload('win-btn', asset.browser_download_url);
+    } else {
+      disableBtn('win-btn', 'Скоро');
+    }
 
   } catch (e) {
-    // при ошибке кнопки остаются с запасным /releases/latest
     console.warn('shield-releases API:', e);
   }
 })();
