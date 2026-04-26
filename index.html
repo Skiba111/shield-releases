@@ -512,10 +512,9 @@
     // ── Android ──────────────────────────────────────────────────────────
     const android = findLatest('android-');
     if (android) {
-      const asset = findAsset(android, /universal.*\.apk$/i)
-                 || findAsset(android, /\.apk$/i);
+      const asset = findAsset(android, /universal.*\.apk$/i);
       if (asset?.browser_download_url) setDownload('android-btn', asset.browser_download_url);
-      // если активов нет — кнопка остаётся как есть (ссылка на страницу релиза)
+      else disableBtn('android-btn', 'Скоро');
     } else {
       disableBtn('android-btn', 'Скоро');
     }
