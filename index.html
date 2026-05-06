@@ -370,7 +370,7 @@
         <path d="M14.994 3.54 16.44 1.22a.4.4 0 0 0-.692-.402l-1.48 2.548A7.94 7.94 0 0 0 12 3.01c-.786 0-1.54.113-2.268.356L8.252.818A.4.4 0 0 0 7.56 1.22l1.447 2.32A7.978 7.978 0 0 0 4.007 10H20a7.978 7.978 0 0 0-5.006-6.46ZM9.5 7.5a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5Zm5 0a.75.75 0 1 1 0-1.5.75.75 0 0 1 0 1.5ZM3 12a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1Zm18 0a1 1 0 0 0-1 1v4a1 1 0 0 0 2 0v-4a1 1 0 0 0-1-1ZM5 11v8a2 2 0 0 0 2 2h1v2a1 1 0 0 0 2 0v-2h4v2a1 1 0 0 0 2 0v-2h1a2 2 0 0 0 2-2v-8H5Z"/>
       </svg>
       <div class="card-title">Android</div>
-      <div class="card-sub">Android 6.0+<br>Universal APK</div>
+      <div class="card-sub" id="android-sub">Android 6.0+<br>Universal APK</div>
       <div class="free-tag">2 дня бесплатно</div>
       <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest" id="android-btn">Скачать APK</a>
       <div class="card-hint">
@@ -385,7 +385,7 @@
         <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.46 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09Zm3.378-3.066c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.56-1.702Z"/>
       </svg>
       <div class="card-title">macOS</div>
-      <div class="card-sub">macOS 12+<br>M1/M2/M3/M4 · Intel</div>
+      <div class="card-sub" id="macos-sub">macOS 12+<br>M1/M2/M3/M4 · Intel</div>
       <div class="free-tag">2 дня бесплатно</div>
       <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest" id="macos-btn">Скачать DMG</a>
       <div class="card-hint">
@@ -401,7 +401,7 @@
         <path d="M0 3.449 9.75 2.1v9.451H0m10.949-9.602L24 0v11.4H10.949M0 12.6h9.75v9.451L0 20.699M10.949 12.6H24V24l-12.9-1.801"/>
       </svg>
       <div class="card-title">Windows</div>
-      <div class="card-sub">Windows 10/11<br>x64</div>
+      <div class="card-sub" id="win-sub">Windows 10/11<br>x64</div>
       <div class="free-tag">2 дня бесплатно</div>
       <a class="btn btn-primary" href="https://github.com/Skiba111/shield-releases/releases/latest" id="win-btn">Скачать EXE</a>
       <div class="card-hint">
@@ -540,12 +540,24 @@
     };
     const findAsset  = (rel, rx) => rel?.assets?.find(a => rx.test(a.name));
 
+    // Показать версию в карточке
+    function setVersion(subId, prefix, rel) {
+      const el = document.getElementById(subId);
+      if (!el || !rel) return;
+      const ver = rel.tag_name.replace(prefix + 'v', '');
+      // append version on second line, avoid duplicates
+      if (!el.innerHTML.includes('v' + ver)) {
+        el.innerHTML += `<br><span style="color:var(--accent);font-size:11px;font-weight:600">v${ver}</span>`;
+      }
+    }
+
     // ── Android ──────────────────────────────────────────────────────────
     const android = findLatest('android-');
     if (android) {
       const asset = findAsset(android, /universal.*\.apk$/i);
       if (asset?.browser_download_url) setDownload('android-btn', asset.browser_download_url);
       else disableBtn('android-btn', 'Скоро');
+      setVersion('android-sub', 'android-', android);
     } else {
       disableBtn('android-btn', 'Скоро');
     }
@@ -556,6 +568,7 @@
       const asset = findAsset(mac, /arm64.*\.dmg$/i)
                  || findAsset(mac, /\.dmg$/i);
       if (asset?.browser_download_url) setDownload('macos-btn', asset.browser_download_url);
+      setVersion('macos-sub', 'macos-', mac);
     } else {
       disableBtn('macos-btn', 'Скоро');
     }
@@ -567,6 +580,7 @@
                  || findAsset(win, /installer.*\.exe$/i)
                  || findAsset(win, /\.exe$/i);
       if (asset?.browser_download_url) setDownload('win-btn', asset.browser_download_url);
+      setVersion('win-sub', 'windows-', win);
     } else {
       disableBtn('win-btn', 'Скоро');
     }
